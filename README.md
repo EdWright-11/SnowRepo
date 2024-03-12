@@ -1,4 +1,4 @@
-# SnowRepo ## Group project for intro data science
+# SnowRepo - Group project for intro data science
 
 
 Ed Wright, Chase Maughan, Morgan Rasmussen
