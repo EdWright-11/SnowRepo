@@ -1,0 +1,86 @@
+// jQuery('#show-hide-filters').click(function() { jQuery('#mobile_filters').toggleClass('sm-hide'); });
+
+(function ($) {
+  Drupal.behaviors.uacAccordion = {
+    attach: function(context) {
+      $('#uac-accordion').once('uac-accordion', function() {
+        $(this).addClass('bg-white border rounded').children().not('h3').hide();
+        var accordionHeaders = $(this).children('h3');
+        accordionHeaders.attr('aria-expanded', false);
+        accordionHeaders.click(function() {
+          var isExpanded = $(this).hasClass('expanded') ? false : true;
+          $(this).attr('aria-expanded', isExpanded).toggleClass('expanded').nextUntil('h3').toggle('fast');
+        });
+      });
+    }
+  },
+  Drupal.behaviors.betterExposedFilters = {
+      attach: function(context) {
+          $('#mobile-subnav-select').once().on('change', function() { var url = $(this).val(); window.location = url; });
+          $('#mobile-nav-open').once().click(function() { $('#mobile-nav-overlay').css('width', '100%'); $('body').css({'overflow':'hidden', 'position':'fixed'}); });
+          $('#medium-nav-open').once().click(function() { $('#mobile-nav-overlay').css('width', '100%'); $('body').css({'overflow':'hidden', 'position':'fixed'}); });
+          $('#mobile-nav-close').once().click(function() { $('#mobile-nav-overlay').css('width', '0%'); $('body').css({'overflow':'scroll', 'position':'relative'}); });
+          $('#medium-nav-close').once().click(function() { $('#mobile-nav-overlay').css('width', '0%'); $('body').css({'overflow':'scroll', 'position':'relative'}); });
+          $('#show-hide-filters').once().click(function() {
+            $('#mobile-filters').toggleClass('sm-hide');
+            if ($(this).text() == 'Show Filters') { $(this).text('Hide Filters'); } else { $(this).text('Show Filters'); }
+          });
+          $('h6.main-menu-item').once().click(function() {
+            $('.sub-menu-items', this).toggleClass('display-none');
+            $('.accordian', this).toggleClass('up');
+          });
+          // $("h5.main-menu-item a" jQuery('a').click(function() { window.location.href($(this).href); });
+          $('h6.main-menu-item a').click(function(e) { e.stopPropagation(); });
+          $('div#other-ways-to-give div.clearfix > div').click(function() {
+            $(this).siblings('div.show-hide-text').toggleClass('display-none');
+            $('.accordian', this).toggleClass('up');
+          });
+       }
+    }
+  Drupal.behaviors.donateFormMobile = {
+    attach: function(context) {
+      let introText = $('.donation-intro-text-join', context);
+      if (introText.length) {
+        let self = this;
+        introText.once('donate-form-mobile', function(){
+          $(window).on('resize', function(){
+            self.resizeHandler.call(self);
+          }).on('load', function(){
+            // This form is not available on document.ready() for some reason
+            $('.uac-sidebar-form').children().wrapAll('<div class="uac-sidebar-form-wrapper"></div>');
+            $(window).trigger('resize');
+          });
+        });
+      }
+    },
+    resizeTm: null,
+    isMobile: false,
+    resizeHandler: function() {
+      if (this.resizeTm) {
+        clearTimeout(this.resizeTm);
+      }
+      let self = this;
+      this.resizeTm = setTimeout(function() {
+        if (!self.isMobile && window.innerWidth < 921) {
+          self.isMobile = true;
+          self.mobileLayout();
+        }
+        else if (self.isMobile && window.innerWidth > 921) {
+          self.isMobile = false;
+          self.desktopLayout();
+        }
+      }, 100);
+    },
+    mobileLayout: function() {
+      let introText = $('.donation-intro-text-join');
+      let form = $('.uac-sidebar-form-wrapper');
+      introText.eq(0).after(form);
+    },
+    desktopLayout: function() {
+      let form = $('.uac-sidebar-form-wrapper');
+      let sidebar = $('.uac-sidebar-form').append(form);
+    }
+
+  }
+})(jQuery);
+;
