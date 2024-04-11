@@ -9,5 +9,8 @@
 ## Authors
 Ed Wright, Chase Maughan, Morgan Rasmussen
 
-## Important Dates
+## Current Tasks
+- Chase: Finish code for autoregression
+- Ed: Fix ticks and add regression lines to simple regression, finish putting google doc on jupyter
+- Mo: Finalize doc
 
