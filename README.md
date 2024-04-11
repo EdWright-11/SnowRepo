@@ -13,4 +13,5 @@ Ed Wright, Chase Maughan, Morgan Rasmussen
 - Chase: Finish code for autoregression
 - Ed: Fix ticks and add regression lines to simple regression, finish putting google doc on jupyter
 - Mo: Finalize doc
+- Clean Github
 
