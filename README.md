@@ -11,7 +11,7 @@ Ed Wright, Chase Maughan, Morgan Rasmussen
 
 ## Current Tasks
 - Chase: Finish code for autoregression
-- Ed: Fix ticks and add regression lines to simple regression, finish putting google doc on jupyter
+- Ed: finish putting google doc on jupyter
 - Mo: Finalize doc
 - Clean Github
 
